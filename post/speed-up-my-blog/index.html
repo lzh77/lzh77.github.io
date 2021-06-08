@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>加速博客静态资源 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">加速博客静态资源</span></h1>
+
+<h2 class="date">2020/01/02</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/blog">blog</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>闲来无事折腾了一下博客，发现打开速度比较慢。由于是静态博客，自从coding page挂了以后我就没折腾国内的全站线路了，反正整个网站的内容和功能都比较简单，没有加载特别多的文件，速度也就不慢，但是这个静态资源的加载还是可以进行一些优化。</p>
+
+<p>首先是固定的静态资源，也就是css和js文件，这些可以直接使用CDN，我这里用的是Cloudflare的CDN，大部分的公共资源都可以找到，地址 <a href="https://cdnjs.com/">https://cdnjs.com/</a> 。本来是用的国内的<code>staticfile.org</code>，但是好像有时候会抽风挂掉，好巧不巧我自己都遇上两三次了，所以直接就全部改掉了，感觉这个稳定一些。而且本来整站也没有做线路上的优化，CF在国内的速度也并不慢，只要资源的加载速度跟得上整站的速度就没问题了。</p>
+
+<p>然后是图片，由于个人的强迫症所以图片都是储存在自己的github仓库里面的（丢到各种云储存上面有挂掉的风险，球球别嘲讽我的博客寿命了），但是github其实也是有一个可以加速的途径——那就是<code>jsdelivr</code>。地址在 <a href="https://www.jsdelivr.com/">https://www.jsdelivr.com/</a> ,也就是说所有位于github仓库上的文件全部都可以走这个cdn，这样会快很多。</p>
+
+<p>jsdelivr的使用格式：<code>https://cdn.jsdelivr.net/gh/{用户名}/{仓库名@分支名}/{文件路径}</code>，分支名可以省略——如果你只有一个分支的话。使用以后我的图片基本上是秒开（国内没挂梯子的情况下）。</p>
+
+<p>另外这里也可以找到各大主流js和css的资源，和CF的是同一种东西，也可以直接用。所以博客里面的所有图片类甚至是各种pdf、doc、二进制文件理论上都是可以走这个的（以后你想要下载某个仓库里的单个资源就可以用这种方法，或者给不懂技术的朋友发这种格式的地址来加快下载速度）。</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

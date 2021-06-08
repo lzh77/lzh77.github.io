@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>图片压缩 on 菜鸡实验室</title>
+    <link>/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/</link>
+    <description>Recent content in 图片压缩 on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 27 May 2019 10:38:22 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>一个图片压缩工具</title>
+      <link>/post/yet-another-picture-shrink-tool/</link>
+      <pubDate>Mon, 27 May 2019 10:38:22 +0800</pubDate>
+      
+      <guid>/post/yet-another-picture-shrink-tool/</guid>
+      <description>做android开发的时候经常会需要压缩图片，主要是为了缩减包体积。有很多人开发了很多工具，其中比较著名的一款是tinypng，这是一个在线工具，网址 https://tinypng.com 。
+但是他也是有限制的，限制传入图片的数量和每张大小。
+也有人根据现有的技术做了一些离线的工具，直接调用库来压缩，没有任何限制，效果也还不错。今天介绍一款名叫pngyu。
+pngyu是一个本地软件，地址 http://nukesaq88.github.io/Pngyu/ ，可以看到这是一个github的开源项目，使用了pngquant 作为压缩引擎。
+pngquant也是很知名的一个图片压缩算法，所以其效果是不用担心的，虽然是有损压缩，但是效果依然出众。 pngyu提供了mac和windows的版本，是离线软件，使用也很方便。
+可以直接把图片拖到中央窗口，也可以点击左下角加号直接添加一个文件夹，这样可以对文件夹里的图片进行批量操作。这对于我们做android开发简直太方便了。
+压缩完成以后默认是生成同名文件并覆盖同目录下的旧文件，你也可以点击custom 自定义命名规则和保存目录。</description>
+    </item>
+    
+  </channel>
+</rss>

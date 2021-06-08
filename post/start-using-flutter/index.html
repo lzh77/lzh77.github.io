@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>Flutter 浅尝辄止 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Flutter 浅尝辄止</span></h1>
+
+<h2 class="date">2018/03/28</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/flutter">flutter</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h3 id="官网和相关站点-资料">官网和相关站点 资料</h3>
+
+<p>官网：(<a href="https://flutter.io/">https://flutter.io/</a>)<br />
+源代码：(<a href="https://github.com/flutter/flutter">https://github.com/flutter/flutter</a>)<br />
+较完整的系列教程：<a href="http://flutter-dev.cn/topic/12/flutter%E4%BB%8E%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%88%B0%E8%BF%9B%E9%98%B6%E7%B3%BB%E5%88%97%E6%95%99%E7%A8%8B">中文教程</a></p>
+
+<h3 id="环境搭建和hello-world-以windows为例">环境搭建和Hello World-以windows为例</h3>
+
+<p>官网已经有步骤了，简单总结一下<br />
+1. 在github上clone源码<br />
+2. 设置环境变量，使flutter命令生效<br />
+3. 安装intelliJ IDEA 2017.1以上版本（社区版即可），安装dart插件，在插件设置里设置好sdk路径<br />
+4. 配好Android环境<br />
+5. <strong>cd到源代码仓库根目录下</strong>，运行<code>flutter doctor</code>，期间需要梯子。cmd下如果使用的是ss或ssr，需要在cmd里面设置代理为<code>127.0.0.1:1080</code> 并使用全局模式，见(<a href="https://blog.csdn.net/lovelyelfpop/article/details/69586366">https://blog.csdn.net/lovelyelfpop/article/details/69586366</a>) 。这个代理是临时的，一旦关闭cmd窗口就会没有代理。<br />
+5. 直到检查通过，运行<code>flutter create myapp</code>（<strong>注意选择合适的cmd目录创建项目</strong>）即可创建一个项目。注意已经自动生成IDEA项目的必须文件和.ignore，无需再编辑。<br />
+6. 用IDEA打开项目，一切正常的话可以直接点run运行项目，注意开启一个模拟器（此处用Android模拟器为例）<br />
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/38035122-47c8ec2e-32d6-11e8-8e40-a446b262f329.png" alt="qq 20180328222019" />
+7. run项目的时候自己解决一下android的sdk gradle版本等问题，改包名，此处不再赘述。<br />
+8. 特别注意需要配置一下镜像地址（类似包管理的中心仓库），见(<a href="https://blog.csdn.net/hnwx7880/article/details/79600223">https://blog.csdn.net/hnwx7880/article/details/79600223</a>)</p>
+
+<h3 id="关于dart和flutter">关于dart和flutter</h3>
+
+<p>由于还没有深入学习这门语言，还没有体会到被夸赞的那些好处，说几个自己的体会<br />
+1. 一个方法里面传多个参数时候，可以随便写逗号，比如<code>a(b,c,b,)</code>这样不会报错<br />
+2. 异步写法使用<code>async/await</code>，返回的是<code>Future&lt;T&gt;</code>。一个简单封装的异步http写法如下：</p>
+
+<pre><code class="language-dart">Future&lt;String&gt; doGet(String url) async {
+    String result;
+    try {
+      print('get url:$url');
+      var httpClient = new HttpClient();
+      var request = await httpClient.getUrl(Uri.parse(url));
+      var response = await request.close();
+      if (response.statusCode == HttpStatus.OK) {
+        result= await response.transform(UTF8.decoder).join();
+      } else {
+        print('Error get:\nHttp status ${response.statusCode}');
+      }
+    } catch (exception) {
+      print('Failed getting IP address,exception:$exception');
+    }
+    return result;
+  }
+</code></pre>
+
+<p>使用异步返回值的时候如下：</p>
+
+<pre><code class="language-dart">apiservice.doGet(url).then((results) {
+      if (results!= null) {
+        //do something...
+      }
+    });
+</code></pre>
+
+<p>在flutter里面回调更新UI的时候，需要使用</p>
+
+<pre><code class="language-dart">setState(() {
+      this.datas = results;
+    });
+</code></pre>
+
+<p>当然这个控件应该是<code>StatefulWidget</code>。<br />
+3. Widget的生命周期，比较重要的是需要重写<code>initState()</code>和<code>dispose()</code>两个方法，大致相当于创建和销毁。比如一个页面的网络请求一般就在<code>initState()</code>里面执行，保证只执行一次。<br />
+4. json解析，如果使用原生的写法，见(<a href="https://flutter.io/json/">https://flutter.io/json/</a>) ，目前发现内部类需要使用<code>Map&lt;String,dynamic&gt;</code>和<code>List&lt;Map&lt;String,dynamic&gt;&gt;</code>实现，然后用<code>map['data']</code>这样的写法来拿到其中的字段值。<br />
+5. 跳转，无参的话直接在App中声明Route，如果要传参数的话，见这篇文章(<a href="https://www.jianshu.com/p/bb69f81f6236)，">https://www.jianshu.com/p/bb69f81f6236)，</a>
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/68747470733a2f2f75706c6f61642d69.png" alt="flutter router with param" /></p>
+
+<h3 id="练习">练习</h3>
+
+<p>尝试使用flutter做了一个简单的项目，使用gank.io的api，实现了tab、列表、webview、图片查看、分享等功能。地址：<a href="https://github.com/lzh77/Gank4Flutter">https://github.com/lzh77/Gank4Flutter</a></p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

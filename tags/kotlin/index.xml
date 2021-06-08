@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kotlin on 菜鸡实验室</title>
+    <link>/tags/kotlin/</link>
+    <description>Recent content in Kotlin on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Jul 2019 10:54:29 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>加速gradle编译的方案汇总集合</title>
+      <link>/post/speedup-gradle-build/</link>
+      <pubDate>Wed, 03 Jul 2019 10:54:29 +0800</pubDate>
+      
+      <guid>/post/speedup-gradle-build/</guid>
+      <description>公司给我配的笔记本太卡了。
+i5低压U，8G内存，机械硬盘。本来是联想办公本。拿来给我做开发，还是最占电脑资源的APP开发。我佛了
+在条件不允许的情况下开始研究各种gradle编译加速方案。
+我的知识还停留在早几年的时代，那时候配个gradle demon，搞个离线模式就差不多了，最多放个大招：跳过Test任务。代码如下：
+allprojects { ...... //skip Test tasks gradle.taskGraph.whenReady { tasks.each { task -&amp;gt; if (task.name.contains(&amp;quot;Test&amp;quot;)) { task.enabled = false } } } }  这段代码现在依然可用。只不过对于我这种硬件资源极度紧缺的情况，满足不了需求了。需要进行改造。
+经过各种搜索以后发现了现在的方案，主要在于修改全局的gradle.properties文件。内容如下：
+## For more details on how to configure your build environment visit # http://www.gradle.org/docs/current/userguide/build_environment.html # # Specifies the JVM arguments used for the daemon process. # The setting is particularly useful for tweaking memory settings. # Default value: -Xmx1024m -XX:MaxPermSize=256m org.</description>
+    </item>
+    
+    <item>
+      <title>Kotlin尝鲜</title>
+      <link>/post/start-using-kotlin/</link>
+      <pubDate>Tue, 02 Jan 2018 11:28:42 +0800</pubDate>
+      
+      <guid>/post/start-using-kotlin/</guid>
+      <description>最近稍微抽空看了下kotlin，总的来说用起来还是不错的，因为没有细细去学习，所以只了解了最基本的用法。
+使用起来和java的语法大同小异，不过有一些比较有意思的特性，可以减小代码量和使代码更优雅。
+其实说白了就是语法糖，然而架不住大家就喜欢，哎
+用的好的话，确实可以减少代码量，提高开发效率。 所以下面就来看看kotlin的语法糖奇技淫巧吧
+data类 java的pojo类实际上就是一大堆胶水代码，极大的阻碍了开发速度的提升。虽然有各种各样的自动生成，但是总觉得原生支持才带劲
+例子：
+data class User(var name:String?,var id:Long)  一行搞定，自动重写了如下方法：
+ equals()/hashCode() toString()方法 componentN()方法 copy()方法  基本上一行解决，非常简洁。 并且得益于这个代码量，可以把一个项目里所有的pojo类写在一个.kt文件下，还不是美滋滋？
+什么，你说get/set？开玩笑，kotlin的类默认可是public的，直接赋值就完事了
+when 例子：
+override fun onClick(v: View?) { when (v!!.id) { R.id.btn_login -&amp;gt; doLogin() R.id.agreement_check_box -&amp;gt; btnLogin.isEnabled = agreementCheckBox.isChecked } }  逻辑类似于java里面的switch case，不同之处在于 使用范围更广，比如可以用来判断类型
+when (a) { is String -&amp;gt; ... is Date -&amp;gt; ... }  还可以用来返回值
+val res = when { s == null -&amp;gt; null s.</description>
+    </item>
+    
+  </channel>
+</rss>

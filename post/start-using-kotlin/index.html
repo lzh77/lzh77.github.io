@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>Kotlin尝鲜 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Kotlin尝鲜</span></h1>
+
+<h2 class="date">2018/01/02</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/kotlin">kotlin</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>最近稍微抽空看了下kotlin，总的来说用起来还是不错的，因为没有细细去学习，所以只了解了最基本的用法。<br />
+使用起来和java的语法大同小异，不过有一些比较有意思的特性，可以减小代码量和使代码更优雅。<br />
+<del>其实说白了就是语法糖，然而架不住大家就喜欢，哎</del></p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/41107401-dbfde650-6aa4-11e8-9b05-f65f0be7a775.gif" alt="d19470aeb9e3fd3218039297c50b6560" /><br />
+用的好的话，确实可以减少代码量，提高开发效率。
+所以下面就来看看kotlin的<del>语法糖</del>奇技淫巧吧</p>
+
+<h2 id="data类">data类</h2>
+
+<p>java的pojo类实际上就是一大堆胶水代码，极大的阻碍了开发速度的提升。虽然有各种各样的自动生成，但是总觉得原生支持才带劲</p>
+
+<p>例子：</p>
+
+<pre><code class="language-kotlin">data class User(var name:String?,var id:Long)
+</code></pre>
+
+<p>一行搞定，自动重写了如下方法：</p>
+
+<ul>
+<li>equals()/hashCode()</li>
+<li>toString()方法</li>
+<li>componentN()方法</li>
+<li>copy()方法</li>
+</ul>
+
+<p>基本上一行解决，非常简洁。
+并且得益于这个代码量，可以把一个项目里所有的pojo类写在一个<code>.kt</code>文件下，还不是美滋滋？<br />
+什么，你说get/set？开玩笑，kotlin的类默认可是public的，直接赋值就完事了</p>
+
+<h2 id="when">when</h2>
+
+<p>例子：</p>
+
+<pre><code class="language-kotlin">override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.btn_login -&gt;
+                doLogin()
+            R.id.agreement_check_box -&gt;
+                btnLogin.isEnabled = agreementCheckBox.isChecked
+        }
+    }
+</code></pre>
+
+<p>逻辑类似于java里面的<code>switch case</code>，不同之处在于 使用范围更广，比如可以用来判断类型</p>
+
+<pre><code class="language-kotlin">        when (a) {
+            is String -&gt;
+                ...
+            is Date -&gt;
+                ...
+        }
+</code></pre>
+
+<p>还可以用来返回值</p>
+
+<pre><code class="language-kotlin">val res = when {
+     s == null -&gt; null
+     s.contains(&quot;detail&quot;) -&gt; &quot;detail&quot;
+     else -&gt; &quot;&quot;
+}
+</code></pre>
+
+<h2 id="apply-let">apply let</h2>
+
+<p>例子：</p>
+
+<pre><code class="language-kotlin">MessageEvent().apply {
+                tag = mTag
+                object = datas.get(position)
+            }.let { EventUtils.postSticky(it) }
+</code></pre>
+
+<p>这段翻译成java是这样：</p>
+
+<pre><code class="language-java">MessageEvent m = new MessageEvent()
+m.tag = mTag
+m.object = datas.get(position)
+EventUtils.postSticky(m)
+</code></pre>
+
+<p>使用<code>apply</code> 可以操作MessageEvent里面的属性，然后使用<code>let</code> 再把最后的MessageEvent返回并传给其他的地方使用。<code>it</code>表示<code>apply</code>返回的对象（MessageEvent）。一句链式调用使可读性增强。</p>
+
+<h2 id="扩展函数">扩展函数</h2>
+
+<p>又一个重磅炸弹，可以让某个类凭空使用并不存在的方法。比如我要隐藏一个view，平时这样写：</p>
+
+<pre><code class="language-java">view.setVisibility = View.GONE
+</code></pre>
+
+<p>使用扩展函数以后，先定义一个扩展函数：</p>
+
+<pre><code class="language-kotlin">fun &lt;T : View&gt; T.gone() {
+    this.visibility = View.GONE
+}
+</code></pre>
+
+<p>然后就可以对任意的view使用<code>view.gone()</code>方法了，是不是很简单？<br />
+有人说这不就是一个工具类嘛？这样想你就错了。下面来说下为什么他是我眼中的重磅炸弹</p>
+
+<ul>
+<li><p>自动加默认值，无需重写<br />
+如果在工具类中，写一个toast方法，至少需要两个：</p>
+
+<pre><code class="language-java">toast(message,duration)
+toast(message)
+</code></pre>
+
+<p>第一个方法其实内部调用了第二个方法并默认给了一个duration（比如<code>Toast.LENGTH_SHORT</code>）。
+这种地方比比皆是，也是成倍增加了代码量。
+但是使用kotlin扩展函数以后，我们这样：</p>
+
+<pre><code class="language-kotlin">fun Context.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT){
+Toast.makeText(this, message, duration)
+}
+</code></pre>
+
+<p>就这一个函数，可以这样使用：</p>
+
+<pre><code class="language-kotlin">toast(&quot;Hello&quot;)
+toast(&quot;Hello&quot;, Toast.LENGTH_LONG)
+</code></pre>
+
+<p>两种写法都允许。爽吧<br />
+在这里实际上第二个参数是「可选的」，也就是说如果你不填他会给一个默认值。</p></li>
+
+<li><p>闭包<br />
+kotlin是支持闭包的，所以你可以传入一个unit参数。而如果你是要传入一个函数式接口并实现其中的方法时，闭包可以帮你剔除多余的参数而专注于核心参数。比如下面这个扩展函数：</p>
+
+<pre><code class="language-kotlin">fun &lt;T&gt; ListView.setOnItemClickListener(block: (T) -&gt; Unit) {
+this.setOnItemClickListener { _, _, position, _ -&gt;
+    val item = this.adapter.getItem(position)
+    block(item as T)
+}
+}
+</code></pre>
+
+<p>我们可以使用</p>
+
+<pre><code class="language-kotlin">listview.setOnItemClickListener&lt;User&gt; { user -&gt;
+        //xxx
+    }
+</code></pre>
+
+<p>这样在<code>onItemClick</code>的方法中，我们只需要关注item这个核心参数，其他的都已经被屏蔽了。</p></li>
+</ul>
+
+<h2 id="其他">其他</h2>
+
+<p>像支持java8的函数式编程、lambda语法、<code>forEach</code>、<code>map</code> 这样的特性，在这个时代几乎已经是标配了，就不赘述了。</p>
+
+<p>给我个人的感觉是，kotlin作为Google官方支持Android的语言，并没有拿出有竞争力的东西来，他能做的java都能做，虽然兼容java但是还是有一些坑的——比如泛型等。所以无法作为一个能替代java的或者能和java并驾齐驱的东西。</p>
+
+<p>但是考虑到他的背靠大树，以及如此年轻，还是大有发展前景的，不过这都是后话。java的东西还是需要学好的，正常人并不会因为他就抛弃java。</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

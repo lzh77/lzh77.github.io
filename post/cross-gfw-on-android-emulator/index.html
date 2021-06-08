@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>Android Studio 自带模拟器科学上网方法 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Android Studio 自带模拟器科学上网方法</span></h1>
+
+<h2 class="date">2018/04/27</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91">科学上网</a> <a href="/tags/android-studio">Android Studio</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>以下一切都以windows为准</p>
+
+<ol>
+<li>首先确保你安装了SS或SSR，本机可以翻</li>
+
+<li><p>然后来到模拟器</p>
+
+<h3 id="使用-移动网络-联网">使用「移动网络」联网：</h3></li>
+
+<li><p>打开设置-网络和互联网-移动网络-接入点名称-点击接入点进行编辑</p></li>
+
+<li><p>在代理上面填写你的本机IP，端口1080——$$R 的默认代理端口，如果你改了也自行改动
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/39350161-dff6247e-4a2f-11e8-8ca8-c823a25ea383.png" alt="qq 20180427152930" /></p></li>
+
+<li><p>然后来到$$R，右键打开选项设置，勾选「允许来自局域网的连接」并保存。
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/39350175-e62bca9c-4a2f-11e8-8e59-396f088c847a.png" alt="qq 20180427152948" /></p></li>
+
+<li><p>回到模拟器即可翻墙。</p></li>
+</ol>
+
+<h3 id="使用wifi联网">使用WiFi联网：</h3>
+
+<ol>
+<li>wifi挂代理，其他步骤相同。
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/39404923-7d5b16c6-4bce-11e8-973e-df10d21cacc2.png" alt="qq 20180429165609" /></li>
+</ol>
+
+<h3 id="其他事项">其他事项：</h3>
+
+<p>对于使用了新版的代理软件-如v2ray等，需要查看他开放的http代理端口。比如老版本的v2ray是1081，新版是10809。然后就是找到并开启支持局域网代理的开关。</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

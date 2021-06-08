@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>科学上网 on 菜鸡实验室</title>
+    <link>/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</link>
+    <description>Recent content in 科学上网 on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 06 Jun 2018 16:01:21 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>V2Ray入门教程</title>
+      <link>/post/tuturial-of-v2ray/</link>
+      <pubDate>Wed, 06 Jun 2018 16:01:21 +0800</pubDate>
+      
+      <guid>/post/tuturial-of-v2ray/</guid>
+      <description>介绍 V2Ray是一个新的网络项目。提供了一整套的网络加速方案，包括客户端和服务端。他支持 Socks、HTTP、Shadowsocks等协议，也有自己开发的一套名为vmess的协议。由于我目前买的梯子已经开始抛弃SS/SSR协议，全面支持v2ray，我也去体验了一下。
+官网：https://www.v2ray.com/
+项目地址：https://github.com/v2ray
+目前没有官方的GUI客户端，只有命令行客户端。GUI的客户端都是第三方开发的，比较热门的有V2RayN，我目前就在使用他。
+本文主要讲解vmess协议下的使用教程。
+使用教程  下载v2ray-core客户端：https://github.com/v2ray/v2ray-core 并解压 下载V2RayN客户端：https://github.com/2dust/v2rayN 将v2rayN.exe复制到第一步解压的目录下，双击运行。 添加节点：  填写详细信息，也可以直接导入链接，专用链接是以vmess://开头的  在后台托盘找到已经运行的客户端，右键开启系统代理，模式选择pac模式
+ 在参数设置里面可以设置本地端口，和是否开启局域网代理   注意点  v2ray-core默认只提供socks代理。 以上面一部设置的端口为例，如果上面设置的是1080，那么
+V2RayN提供的http端口是1080+1
+V2RayN提供的pac端口是1080+2
+所以在telegram里面不要选错了   注：V2RayN新版本的默认端口从1080改为10808。加1和加2的规则不变，也就是最终端口分别变为10809和10810
+ pac模式下，pac文件就在软件根目录： 可以自行编辑，规则跟SSR的一样。 另外可以在V2RayN的设置-pac设置里面自行添加需要走代理的域名。一行一个，换行添加，如下(注意英文逗号)：  v2ex.com,
+cloudflare.com</description>
+    </item>
+    
+    <item>
+      <title>Android Studio 自带模拟器科学上网方法</title>
+      <link>/post/cross-gfw-on-android-emulator/</link>
+      <pubDate>Fri, 27 Apr 2018 15:28:25 +0800</pubDate>
+      
+      <guid>/post/cross-gfw-on-android-emulator/</guid>
+      <description>以下一切都以windows为准
+ 首先确保你安装了SS或SSR，本机可以翻 然后来到模拟器
+使用「移动网络」联网： 打开设置-网络和互联网-移动网络-接入点名称-点击接入点进行编辑
+ 在代理上面填写你的本机IP，端口1080——$$R 的默认代理端口，如果你改了也自行改动  然后来到$$R，右键打开选项设置，勾选「允许来自局域网的连接」并保存。  回到模拟器即可翻墙。
+  使用WiFi联网：  wifi挂代理，其他步骤相同。   其他事项： 对于使用了新版的代理软件-如v2ray等，需要查看他开放的http代理端口。比如老版本的v2ray是1081，新版是10809。然后就是找到并开启支持局域网代理的开关。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 菜鸡实验室</title>
+    <link>/tags/java/</link>
+    <description>Recent content in Java on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 06 Aug 2019 11:18:36 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>另一个jdk下载地址，速度不错而且不需要注册</title>
+      <link>/post/open-portable-jdk-download-page/</link>
+      <pubDate>Tue, 06 Aug 2019 11:18:36 +0800</pubDate>
+      
+      <guid>/post/open-portable-jdk-download-page/</guid>
+      <description>现在开始，下载jdk的oracle网站需要注册了。虽然也不是多麻烦的一件事，但是注册本身网速很慢，而且每次下载都要登录，这点很不爽。
+后面找到了一个新的下载地址，来自Adobe提供的页面，地址公开——也就是无需注册，速度还不错。地址如下：
+https://www.adobe.com/support/coldfusion/downloads.html
+页面拉到底部，有java8 java11（两个比较稳定的版本）的各系统版本下载，包括linux windows mac osx都有提供。</description>
+    </item>
+    
+    <item>
+      <title>使用mybatis的继承机制</title>
+      <link>/post/mybatis-extend/</link>
+      <pubDate>Thu, 08 Feb 2018 18:28:54 +0800</pubDate>
+      
+      <guid>/post/mybatis-extend/</guid>
+      <description>起因：公司有一个产品化的项目，是使用一套自己总结的包含业务的抽象框架，根据不同的OEM厂商实现不同的provider。 在修改一个需求的时候，要求在原有的功能上进行修改，以实现个性化需求。现状如下： mapper类
+public interface VinDao extends DaoMapper { T_Vin load(DaoParamWrapper wrapper); List&amp;lt;T_Vin_Mapping&amp;gt; loadVinMappings(DaoParamWrapper wrapper); }  mapper xml
+&amp;lt;select id=&amp;quot;loadPartCodesByVin&amp;quot; resultType=&amp;quot;...&amp;quot;&amp;gt; do something... &amp;lt;/select&amp;gt; &amp;lt;select id=&amp;quot;load&amp;quot; resultType=&amp;quot;...&amp;quot;&amp;gt; do something... &amp;lt;/select&amp;gt;  要求：loadVinMappings的实现不变，load的实现需要改变。同时还要增加2个方法，是这个oem独有的，不能写在公用的mapperDao里面。
+解决 第一反应：这还不简单，直接复制一份嘛 问题：工作量太大了。其实也不大，就是感觉做java肯定要想尽办法做到复用。
+下一个方案：分开写，各自实现各自的。 问题：有公用的方法，如果分离成两个mapper的话也不行，因为框架既定，这个mapper就是做这两件事的。随意改动的话其他地方也要跟着改。
+最终方案：使用mybatis的继承机制。参考文章 解决后的代码： mapper类
+public interface OEMVinDao extends VinDao { Set&amp;lt;String&amp;gt; loadPartCodesByVin(String vin); @Override T_Vin load(DaoParamWrapper wrapper); List&amp;lt;T_OEM_Vin&amp;gt; loadByBottom(DaoParamWrapper wrapper); }  mapper xml
+&amp;lt;select id=&amp;quot;loadPartCodesByVin&amp;quot; resultType=&amp;quot;...&amp;quot;&amp;gt; do something... &amp;lt;/select&amp;gt; &amp;lt;select id=&amp;quot;load&amp;quot; resultType=&amp;quot;.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>使用mybatis的继承机制 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">使用mybatis的继承机制</span></h1>
+
+<h2 class="date">2018/02/08</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/java">java</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h3 id="起因-公司有一个产品化的项目-是使用一套自己总结的包含业务的抽象框架-根据不同的oem厂商实现不同的provider">起因：公司有一个产品化的项目，是使用一套自己总结的包含业务的抽象框架，根据不同的OEM厂商实现不同的provider。</h3>
+
+<p>在修改一个需求的时候，要求在原有的功能上进行修改，以实现个性化需求。现状如下：
+mapper类</p>
+
+<pre><code class="language-java">public interface VinDao extends DaoMapper {
+	
+	T_Vin load(DaoParamWrapper wrapper);
+
+	List&lt;T_Vin_Mapping&gt; loadVinMappings(DaoParamWrapper wrapper);
+
+}
+</code></pre>
+
+<p>mapper xml</p>
+
+<pre><code class="language-xml">&lt;select id=&quot;loadPartCodesByVin&quot; resultType=&quot;...&quot;&gt;
+       do something...
+    &lt;/select&gt;
+
+    &lt;select id=&quot;load&quot; resultType=&quot;...&quot;&gt;
+       do something...
+    &lt;/select&gt;
+</code></pre>
+
+<p>要求：<code>loadVinMappings</code>的实现不变，<code>load</code>的实现需要改变。同时还要增加2个方法，是这个oem独有的，不能写在公用的<code>mapperDao</code>里面。</p>
+
+<h3 id="解决">解决</h3>
+
+<p>第一反应：这还不简单，直接复制一份嘛
+问题：工作量太大了。其实也不大，就是感觉做java肯定要想尽办法做到复用。</p>
+
+<p>下一个方案：分开写，各自实现各自的。
+问题：有公用的方法，如果分离成两个mapper的话也不行，因为框架既定，这个mapper就是做这两件事的。随意改动的话其他地方也要跟着改。</p>
+
+<h5 id="最终方案-使用mybatis的继承机制-参考-文章-https-segmentfault-com-a-1190000012470056">最终方案：使用mybatis的继承机制。参考<a href="https://segmentfault.com/a/1190000012470056">文章</a></h5>
+
+<p>解决后的代码：
+mapper类</p>
+
+<pre><code class="language-java">public interface OEMVinDao extends VinDao {
+
+    Set&lt;String&gt; loadPartCodesByVin(String vin);
+
+    @Override
+    T_Vin load(DaoParamWrapper wrapper);
+
+    List&lt;T_OEM_Vin&gt; loadByBottom(DaoParamWrapper wrapper);
+
+}
+</code></pre>
+
+<p>mapper xml</p>
+
+<pre><code class="language-xml">&lt;select id=&quot;loadPartCodesByVin&quot; resultType=&quot;...&quot;&gt;
+       do something...
+    &lt;/select&gt;
+
+    &lt;select id=&quot;load&quot; resultType=&quot;...&quot;&gt;
+       do something...
+    &lt;/select&gt;
+
+&lt;select id=&quot;loadByBottom&quot; resultType=&quot;...&quot;&gt;
+       do something...
+    &lt;/select&gt;
+</code></pre>
+
+<p>此时oem继承了公用的<code>VinDao</code>，其中未实现的方法<code>loadVinMappings</code>直接继承了父类的实现。xml里面也不用写了。</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

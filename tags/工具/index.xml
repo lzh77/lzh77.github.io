@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>工具 on 菜鸡实验室</title>
+    <link>/tags/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Sep 2019 14:41:47 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>windows上的PDF软件——sumatraPDF</title>
+      <link>/post/sumatra/</link>
+      <pubDate>Fri, 20 Sep 2019 14:41:47 +0800</pubDate>
+      
+      <guid>/post/sumatra/</guid>
+      <description>前两天我们测试同学发给我一个pdf，我一看足足有22m！
+我问他怎么做出来的，他说用xmind导出的！
+打开就是一页，里面是一张超大的树状图，类似这种：
+大小呢，大概是4000x10000（高度一万多）的样子。
+我用了很多工具，不是打开太卡 狂占资源，就是缩放达不到我的要求。
+后来发现了一个好用的软件：sumatraPDF。看简介：
+Sumatra Pdf是Krzysztof Kowalczyk所开发的轻量级PDF阅读器，类型为开放软件，开发者是Krzysztof Kowalczyk，可以后面网址下载安装版和携带版，同时还提供源码下载。
+下载链接：https://www.sumatrapdfreader.org/free-pdf-reader.html
+包很小，下载安装以后确实也很简介——甚至是简陋，有种九十年代的软件风格。但是胜在好用，确实够流畅，打开以后用任务管理器查看占用也是非常优秀。
+行了，以后用他做主力pdf了。反正我也没有高级需求。</description>
+    </item>
+    
+    <item>
+      <title>一个图片压缩工具</title>
+      <link>/post/yet-another-picture-shrink-tool/</link>
+      <pubDate>Mon, 27 May 2019 10:38:22 +0800</pubDate>
+      
+      <guid>/post/yet-another-picture-shrink-tool/</guid>
+      <description>做android开发的时候经常会需要压缩图片，主要是为了缩减包体积。有很多人开发了很多工具，其中比较著名的一款是tinypng，这是一个在线工具，网址 https://tinypng.com 。
+但是他也是有限制的，限制传入图片的数量和每张大小。
+也有人根据现有的技术做了一些离线的工具，直接调用库来压缩，没有任何限制，效果也还不错。今天介绍一款名叫pngyu。
+pngyu是一个本地软件，地址 http://nukesaq88.github.io/Pngyu/ ，可以看到这是一个github的开源项目，使用了pngquant 作为压缩引擎。
+pngquant也是很知名的一个图片压缩算法，所以其效果是不用担心的，虽然是有损压缩，但是效果依然出众。 pngyu提供了mac和windows的版本，是离线软件，使用也很方便。
+可以直接把图片拖到中央窗口，也可以点击左下角加号直接添加一个文件夹，这样可以对文件夹里的图片进行批量操作。这对于我们做android开发简直太方便了。
+压缩完成以后默认是生成同名文件并覆盖同目录下的旧文件，你也可以点击custom 自定义命名规则和保存目录。</description>
+    </item>
+    
+  </channel>
+</rss>

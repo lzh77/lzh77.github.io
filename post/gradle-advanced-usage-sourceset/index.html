@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>Gradle高级用法【2】-SourceSet | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Gradle高级用法【2】-SourceSet</span></h1>
+
+<h2 class="date">2018/01/14</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/gradle">gradle</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<h2 id="起因">起因</h2>
+
+<p>fork了一个项目，准备用kotlin完全重写，但是又想提交在同一个项目上，而且不污染原作者的代码。于是研究了一下可行方案：</p>
+
+<ul>
+<li>git 新开一个分支，pass（其实是对git不熟……）</li>
+<li>新开一个productFlavor</li>
+</ul>
+
+<p>最后决定使用方案2。话不多说，方案详细是这样的：<br />
+新开一个productFlavor，使用不同的SourceSet装载自己的一份完整代码，包括核心（src）、资源（res，assets）、清单（manifest.xml）。使用姿势大概是这样的：<br />
+在app的build.gradle文件中：</p>
+
+<pre><code class="language-groovy">android {
+    ...
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aild.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+        kotlin {
+            java.srcDirs = ['src-dev']
+        }
+    }
+
+}
+</code></pre>
+
+<p>其中的定义见代码，这里略过。</p>
+
+<h2 id="我的踩坑记录">我的踩坑记录</h2>
+
+<p>一开始我的配置是这样的</p>
+
+<pre><code class="language-groovy">    sourceSets {
+        kotlin {
+            manifest.srcFile 'src/main/KotlinAndroidManifest.xml'
+            java.srcDirs = 'src/main/kotlin'
+            res.srcDirs = 'src/main/res-kotlin'
+        }
+    }
+    productFlavors {
+        kotlin {}
+    }
+</code></pre>
+
+<p>目录结构：
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/34913240-7c09df94-f932-11e7-8833-7d6280a0de39.png" alt="qq 20180114135346" />
+看上去很完美。<br />
+运行，报错：<br />
+<code>Error:Cannot cast object 'src/main/kotlin' with class 'java.lang.String' to class 'java.lang.Iterable'</code><br />
+稍微想了一下，哦，原来是<code>java.srcDirs</code>和<code>res.srcDirs</code>不能直接用一个引号，需要使用数组（Iterable）。改成</p>
+
+<pre><code class="language-groovy"> java.srcDirs = ['src/main/kotlin']
+ res.srcDirs = ['src/main/res-kotlin']
+</code></pre>
+
+<p>依旧报错。又查了一下，发现有souceset是有一个默认集main的，如果使用默认的souceset需要加上。</p>
+
+<pre><code class="language-groovy">sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+        }
+        kotlin {
+            manifest.srcFile 'src/main/KotlinAndroidManifest.xml'
+            java.srcDirs = ['src/main/kotlin']
+            res.srcDirs = ['src/main/res-kotlin']
+        }
+    }
+</code></pre>
+
+<p>嗯，编译不报错了，运行又报错。又发现一个问题：左下角的切换productflavor里面只有一个kotlin的，默认那个哪去了？百思不得其解，查了好多，后面发现直接简单粗暴的给一个默认flavor命名为normal：</p>
+
+<pre><code class="language-groovy">productFlavors {
+        normal {}
+        kotlin {}
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+        }
+
+        normal {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+        }
+
+        kotlin {
+            manifest.srcFile 'src/main/KotlinAndroidManifest.xml'
+            java.srcDirs = ['src/main/kotlin']
+            res.srcDirs = ['src/main/res-kotlin']
+        }
+    }
+</code></pre>
+
+<p>normal的sourceset就和main一致。果然出现了</p>
+
+<p><img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/34913299-ffe4c184-f933-11e7-8b44-ec4d3875159f.png" alt="qq 20180114140529" /></p>
+
+<h2 id="已经规避但是也需要注意的坑">已经规避但是也需要注意的坑</h2>
+
+<ul>
+<li>在gradle文件里需要先写flavors ，再写sourceSets。参考<a href="https://stackoverflow.com/a/17246390/6699749">这里</a></li>
+<li>如果出现类或者资源文件重复的情况，猜测可能是打包的时候把别的sourceset也检测了一遍。我的做法是自己的souceset里面文件命名全部带一个<code>kotlin</code>的前缀</li>
+<li>manifest合并失败，报错<br />
+<code>
+Execution failed for task ':app:processDebugManifest'.
+&gt; Manifest merger failed : Attribute application@theme value=(@style/AppTheme) from AndroidManifest.xml:35:9-40
+is also present at [TC_Hospital_Patient:zybwenzhen:unspecified] AndroidManifest.xml:17:9-47 value=(@style/AppWenzhenTheme).
+Suggestion: add 'tools:replace=&quot;android:theme&quot;' to &lt;application&gt; element at AndroidManifest.xml:29:5-44:19 to override.
+</code><br /></li>
+</ul>
+
+<p>根据建议需要在<code>application</code>节点添加</p>
+
+<pre><code class="language-xml">tools:replace=&quot;android:theme&quot;
+</code></pre>
+
+<p>添加以后build发现还有一条类似的错误是关于</p>
+
+<pre><code class="language-xml">tools:replace=&quot;android:name&quot;
+</code></pre>
+
+<p>解决办法是使用</p>
+
+<pre><code class="language-xml">tools:replace=&quot;android:name,android:theme&quot;
+</code></pre>
+
+<p>如果还有更多就用逗号隔开。</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

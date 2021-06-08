@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gradle on 菜鸡实验室</title>
+    <link>/tags/gradle/</link>
+    <description>Recent content in Gradle on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Jul 2019 10:54:29 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/gradle/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>加速gradle编译的方案汇总集合</title>
+      <link>/post/speedup-gradle-build/</link>
+      <pubDate>Wed, 03 Jul 2019 10:54:29 +0800</pubDate>
+      
+      <guid>/post/speedup-gradle-build/</guid>
+      <description>公司给我配的笔记本太卡了。
+i5低压U，8G内存，机械硬盘。本来是联想办公本。拿来给我做开发，还是最占电脑资源的APP开发。我佛了
+在条件不允许的情况下开始研究各种gradle编译加速方案。
+我的知识还停留在早几年的时代，那时候配个gradle demon，搞个离线模式就差不多了，最多放个大招：跳过Test任务。代码如下：
+allprojects { ...... //skip Test tasks gradle.taskGraph.whenReady { tasks.each { task -&amp;gt; if (task.name.contains(&amp;quot;Test&amp;quot;)) { task.enabled = false } } } }  这段代码现在依然可用。只不过对于我这种硬件资源极度紧缺的情况，满足不了需求了。需要进行改造。
+经过各种搜索以后发现了现在的方案，主要在于修改全局的gradle.properties文件。内容如下：
+## For more details on how to configure your build environment visit # http://www.gradle.org/docs/current/userguide/build_environment.html # # Specifies the JVM arguments used for the daemon process. # The setting is particularly useful for tweaking memory settings. # Default value: -Xmx1024m -XX:MaxPermSize=256m org.</description>
+    </item>
+    
+    <item>
+      <title>Gradle高级用法【2】-SourceSet</title>
+      <link>/post/gradle-advanced-usage-sourceset/</link>
+      <pubDate>Sun, 14 Jan 2018 14:24:07 +0800</pubDate>
+      
+      <guid>/post/gradle-advanced-usage-sourceset/</guid>
+      <description>起因 fork了一个项目，准备用kotlin完全重写，但是又想提交在同一个项目上，而且不污染原作者的代码。于是研究了一下可行方案：
+ git 新开一个分支，pass（其实是对git不熟……） 新开一个productFlavor  最后决定使用方案2。话不多说，方案详细是这样的：
+新开一个productFlavor，使用不同的SourceSet装载自己的一份完整代码，包括核心（src）、资源（res，assets）、清单（manifest.xml）。使用姿势大概是这样的：
+在app的build.gradle文件中：
+android { ... sourceSets { main { manifest.srcFile &#39;AndroidManifest.xml&#39; java.srcDirs = [&#39;src&#39;] resources.srcDirs = [&#39;src&#39;] aild.srcDirs = [&#39;src&#39;] renderscript.srcDirs = [&#39;src&#39;] res.srcDirs = [&#39;res&#39;] assets.srcDirs = [&#39;assets&#39;] } kotlin { java.srcDirs = [&#39;src-dev&#39;] } } }  其中的定义见代码，这里略过。
+我的踩坑记录 一开始我的配置是这样的
+sourceSets { kotlin { manifest.srcFile &#39;src/main/KotlinAndroidManifest.xml&#39; java.srcDirs = &#39;src/main/kotlin&#39; res.srcDirs = &#39;src/main/res-kotlin&#39; } } productFlavors { kotlin {} }  目录结构： 看上去很完美。</description>
+    </item>
+    
+    <item>
+      <title>关于Android Studio和gradle日常操作的一些坑的记录</title>
+      <link>/post/problems-using-as-gradle/</link>
+      <pubDate>Fri, 05 Jan 2018 17:36:44 +0800</pubDate>
+      
+      <guid>/post/problems-using-as-gradle/</guid>
+      <description> run项目，弹框出现 ADB Install Fails With INSTALL_FAILED_TEST_ONLY，安装失败
+解决办法：run的启动选项里面的install Flags 填上参数 -t 再不行就关闭instant run 参考链接
+ run项目报错：Error:This Gradle plugin requires Studio 3.0 minimum
+解决办法：gradle.properties中加一行 android.injected.build.model.only.versioned = 3 参考链接
+ run项目需要下载新的sdk，下载失败报错：Failed to read or create install properties file
+解决办法：我是win系统，进入sdk目录下发现需要权限（我的sdk目录是自己新建的文件夹，不存在权限问题） 然后我就管理员运行AS，解决了 参考链接
+ 查看源码时，显示注释非常慢，按快捷键Ctrl+Q也很慢，甚至不显示
+解决办法：在win系统中，C:\Users\admin\.AndroidStudio2.3\config\options\jdk.table.xml中，查找注释需要的在线链接：
+&amp;lt;root type=&amp;quot;simple&amp;quot; url=&amp;quot;http://developer.android.com/reference/&amp;quot;&amp;gt;  全部替换为
+&amp;lt;root type=&amp;quot;simple&amp;quot; url=&amp;quot;http://developer.android.google.cn/reference/&amp;quot;&amp;gt;  注意每个api都有一条，需要全部替换。
+参考链接
+  </description>
+    </item>
+    
+  </channel>
+</rss>
