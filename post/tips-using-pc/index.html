@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>提高使用电脑和网络的效率的一些小技巧，持续更新中 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">提高使用电脑和网络的效率的一些小技巧，持续更新中</span></h1>
+
+<h2 class="date">2018/06/02</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7">小技巧</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<ul>
+<li><p>github clone慢：首先fork仓库，然后登录码云，绑定你的github账户，然后在码云上可以把github的仓库同步到码云
+<img src="https://cdn.jsdelivr.net/gh/lzh77/lzh77.github.io/img/40871810-65f4a936-6675-11e8-9890-905a7cc4636c.png" alt="qq 20180602145812" />
+最后在码云上clone。走国内网络，速度不用说了</p></li>
+
+<li><p>git 挂代理：</p></li>
+</ul>
+
+<pre><code class="language-bash">git config --global https.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+</code></pre>
+
+<ul>
+<li><p>windows版sourcetree 跳过登录验证：<a href="https://www.jianshu.com/p/3478e2a214a1">https://www.jianshu.com/p/3478e2a214a1</a>
+进入<code>%LocalAppData%\Atlassian\SourceTree\</code>
+新建文件<code>accounts.json</code>，填入以下内容：</p>
+
+<pre><code class="language-json">[
+{
+&quot;$id&quot;: &quot;1&quot;,
+&quot;$type&quot;: &quot;SourceTree.Api.Host.Identity.Model.IdentityAccount, SourceTree.Api.Host.Identity&quot;,
+&quot;Authenticate&quot;: true,
+&quot;HostInstance&quot;: {
+  &quot;$id&quot;: &quot;2&quot;,
+  &quot;$type&quot;: &quot;SourceTree.Host.Atlassianaccount.AtlassianAccountInstance, SourceTree.Host.AtlassianAccount&quot;,
+  &quot;Host&quot;: {
+    &quot;$id&quot;: &quot;3&quot;,
+    &quot;$type&quot;: &quot;SourceTree.Host.Atlassianaccount.AtlassianAccountHost, SourceTree.Host.AtlassianAccount&quot;,
+    &quot;Id&quot;: &quot;atlassian account&quot;
+  },
+  &quot;BaseUrl&quot;: &quot;https://id.atlassian.com/&quot;
+},
+&quot;Credentials&quot;: {
+  &quot;$id&quot;: &quot;4&quot;,
+  &quot;$type&quot;: &quot;SourceTree.Model.BasicAuthCredentials, SourceTree.Api.Account&quot;,
+  &quot;Username&quot;: &quot;&quot;,
+  &quot;Email&quot;: null
+},
+&quot;IsDefault&quot;: false
+}
+]
+</code></pre>
+
+<p>保存后打开sourcetree就可以了</p></li>
+
+<li><p>蓝天模具笔记本 风扇降速小工具：<a href="http://tieba.baidu.com/p/4901487709">http://tieba.baidu.com/p/4901487709</a> ，名叫<code>ecviewer</code></p></li>
+
+<li><p>查手机号归属地的api，淘宝出品，稳定性应该可以：
+<a href="https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=13800138000">https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=13800138000</a></p></li>
+
+<li><p>windows ftp配置，搭建ftp网络 局域网内快传：
+<a href="https://wenku.baidu.com/view/ed393885c281e53a5902ff04.html">https://wenku.baidu.com/view/ed393885c281e53a5902ff04.html</a></p></li>
+
+<li><p>powershell 设置代理：
+<a href="https://www.pstips.net/set-ie-proxy.html">https://www.pstips.net/set-ie-proxy.html</a></p></li>
+
+<li><p>推荐一款新的gitGUI客户端 git-flow，地址：
+<a href="https://git-fork.com">https://git-fork.com</a></p></li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

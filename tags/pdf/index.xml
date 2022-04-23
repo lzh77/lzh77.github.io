@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pdf on 菜鸡实验室</title>
+    <link>/tags/pdf/</link>
+    <description>Recent content in Pdf on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Sep 2019 14:41:47 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/pdf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>windows上的PDF软件——sumatraPDF</title>
+      <link>/post/sumatra/</link>
+      <pubDate>Fri, 20 Sep 2019 14:41:47 +0800</pubDate>
+      
+      <guid>/post/sumatra/</guid>
+      <description>前两天我们测试同学发给我一个pdf，我一看足足有22m！
+我问他怎么做出来的，他说用xmind导出的！
+打开就是一页，里面是一张超大的树状图，类似这种：
+大小呢，大概是4000x10000（高度一万多）的样子。
+我用了很多工具，不是打开太卡 狂占资源，就是缩放达不到我的要求。
+后来发现了一个好用的软件：sumatraPDF。看简介：
+Sumatra Pdf是Krzysztof Kowalczyk所开发的轻量级PDF阅读器，类型为开放软件，开发者是Krzysztof Kowalczyk，可以后面网址下载安装版和携带版，同时还提供源码下载。
+下载链接：https://www.sumatrapdfreader.org/free-pdf-reader.html
+包很小，下载安装以后确实也很简介——甚至是简陋，有种九十年代的软件风格。但是胜在好用，确实够流畅，打开以后用任务管理器查看占用也是非常优秀。
+行了，以后用他做主力pdf了。反正我也没有高级需求。</description>
+    </item>
+    
+  </channel>
+</rss>

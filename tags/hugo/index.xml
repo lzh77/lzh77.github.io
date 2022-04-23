@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hugo on 菜鸡实验室</title>
+    <link>/tags/hugo/</link>
+    <description>Recent content in Hugo on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 18 Jul 2018 18:49:36 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用hugo和github pages 搭建静态站点</title>
+      <link>/post/build-gh-pages-using-hugo/</link>
+      <pubDate>Wed, 18 Jul 2018 18:49:36 +0800</pubDate>
+      
+      <guid>/post/build-gh-pages-using-hugo/</guid>
+      <description>最近有点空了又开始折腾个人博客了，听闻hugo有上升的趋势，于是就去体验了一把。
+hugo是用go语言编写的项目，帮助用户以很快的速度搭建静态站点。方式是和hexo一样，生成静态html文件。与hexo的区别在于，在达到千级别的文章数量以后，hexo的性能就跟不上了。又由于大火的go语言，所以hugo开始崭露头角。
+hugo使用和环境搭建 这里以windows环境为例，并默认你已经有github账户和掌握基本的编程知识。
+ 先下载hugo https://github.com/gohugoio/hugo/releases ，选择自己对应的操作系统安装包 解压，把hugo.exe加入环境变量。  把hugo.exe放到C:\hugo\下 然后在环境变量的path环境变量中添加这个路径 然后在cmd中测试，输入命令hugo version  在你自己想要的目录下打开cmd输入hugo new site hugo-blog，hugo会自动生成一个hugo-blog文件夹 cd到目录下，cmd输入hugo hello.md，hugo会在content目录下新建一个hello.md文件。这就是写文章。里面的内容自己编辑，可能会带有draft=true的参数，表示这是一篇草稿。 cmd输入hugo -d在public目录生成静态站点文件，这里面的所有文件就是你要push到github page上的静态文件。也可以使用hugo -d blog自定义生成文件的路径为blog文件夹 cmd输入hugo serve就可以在 http://localhost:1313 进行本地预览。注意如果你的md文件是草稿，是看不到的，此时有2个办法：一个是删掉那一行，还有一个是使用hugo serve --buildDrafts命令 使用hugo serve -w命令可以进行实时预览，当文件保存以后，1313端口的本地页面会自动刷新  hugo自定义 主配置文件在config.toml里，可以自己修改host、网站标题、描述等
+主题：自行搜索，或者去(https://themes.gohugo.io/ )自己挑一个。
+主题下载以后解压，将主题文件夹整个放到根目录的themes 目录下，然后去根目录的config.toml下加一行： theme = &amp;quot;hyde&amp;quot;，我这里用的是hyde主题(https://github.com/spf13/hyde/)
+以上内容的参考资料来自 这个网站
+利用travis-ci自动部署到github page 正常情况下我们只需要hugo -d，然后把生成的文件全部push到 username.github.io仓库下就可以了。但是每一次这样做很不方便，于是就使用了持续集成。
+我们先把整个hugo-blog目录也做成一个git仓库，我的地址： https://github.com/lzh77/hugo-blog
+然后创建travis-ci所需的配置文件，如下： https://raw.githubusercontent.com/lzh77/hugo-blog/master/.travis.yml
+你可以直接使用他，注意自己改成自己的 git用户名 和 github page 仓库地址。
+配置文件中有一个GITHUB_TOKEN变量，我们需要自己申请一个token用于travis-ci：
+ 到 https://github.com/settings/tokens 选择access tokens，新建一个，权限选择除了delete_repo以外的全部。复制下它，因为返回以后你自己也看不到它了，只能重建一个。  进入 https://travis-ci.</description>
+    </item>
+    
+    <item>
+      <title>Hugo Markdown 渲染示例</title>
+      <link>/post/hugo-render-example/</link>
+      <pubDate>Wed, 18 Jul 2018 12:56:12 +0800</pubDate>
+      
+      <guid>/post/hugo-render-example/</guid>
+      <description>该文件用来测试和展示书写README的各种markdown语法。GitHub的markdown语法在标准的markdown语法基础上做了扩充，称之为GitHub Flavored Markdown。简称GFM，GFM在GitHub上有广泛应用，除了README文件外，issues和wiki均支持markdown语法。
+###　Author:果冻虾仁
+###　E-mail:Jelly.K.Wang@qq.com
+===========================
+目录  横线 标题 文本  普通文本 单行文本 多行文本 文字高亮 换行 斜体 粗体 删除线  图片  来源于网络的图片 GitHub仓库中的图片  链接  文字超链接  链接外部URL 链接本仓库里的URL  锚点 图片链接  列表  无序列表 有序列表 复选框列表  块引用 代码高亮 表格 表情  横线 ***、&amp;mdash;、___可以显示横线效果
+标题 一级标题 二级标题 三级标题 四级标题 五级标题 六级标题 文本 普通文本 这是一段普通的文本
+单行文本 Hello,大家好，我是果冻虾仁。  在一行开头加入1个Tab或者4个空格。
+文本块 语法1 在连续几行的文本开头加入1个Tab或者4个空格。
+欢迎到访 很高兴见到您 祝您，早上好，中午好，下午好，晚安  语法2 使用一对各三个的反引号：</description>
+    </item>
+    
+  </channel>
+</rss>

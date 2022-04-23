@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on 菜鸡实验室</title>
+    <link>/tags/github/</link>
+    <description>Recent content in Github on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Aug 2019 13:11:02 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>推荐一个小巧好用的Git客户端-Fork</title>
+      <link>/post/git-client-fork/</link>
+      <pubDate>Thu, 08 Aug 2019 13:11:02 +0800</pubDate>
+      
+      <guid>/post/git-client-fork/</guid>
+      <description>如题，简洁明了。官网：https://git-fork.com
+他长这样：
+拥有黑白双主题。无需注册。提供win mac 两种客户端。
+值得一提的是，他的开发者是一男一女两夫妻。丈夫负责mac端，妻子负责win端。
+我承认我酸了……</description>
+    </item>
+    
+    <item>
+      <title>Git 删除所有提交历史</title>
+      <link>/post/git-delete-all-history/</link>
+      <pubDate>Mon, 03 Sep 2018 20:20:09 +0800</pubDate>
+      
+      <guid>/post/git-delete-all-history/</guid>
+      <description>有些git项目出于一些原因我们需要删除提交历史。
+有如下场景：
+不小心把配置文件的密钥等信息上传出去了又想撤回。
+项目commit次数太多了，删除commit可以相当于清理一下repo，可以缩小体积
+如果是单人的项目，这时候可以用命令：git push --force来完成。这样会覆盖上一次commit。
+如果是想删除所有的提交历史，我们可以用以下的命令：
+# 1. 创建全新的孤立分支 latest_branch git checkout --orphan latest_branch # 2. 暂存所有文件 git add -A # 3. 提交所有文件的修改到latest_branch git commit -am &amp;quot;del all history&amp;quot; # 4. 删除原来的master分支 git branch -D master # 5. 修改latest_branch分支名为master git branch -m master # 6. 强制更新远程服务器的master分支, 至此清空git所有历史 git push -f origin master  </description>
+    </item>
+    
+    <item>
+      <title>使用hugo和github pages 搭建静态站点</title>
+      <link>/post/build-gh-pages-using-hugo/</link>
+      <pubDate>Wed, 18 Jul 2018 18:49:36 +0800</pubDate>
+      
+      <guid>/post/build-gh-pages-using-hugo/</guid>
+      <description>最近有点空了又开始折腾个人博客了，听闻hugo有上升的趋势，于是就去体验了一把。
+hugo是用go语言编写的项目，帮助用户以很快的速度搭建静态站点。方式是和hexo一样，生成静态html文件。与hexo的区别在于，在达到千级别的文章数量以后，hexo的性能就跟不上了。又由于大火的go语言，所以hugo开始崭露头角。
+hugo使用和环境搭建 这里以windows环境为例，并默认你已经有github账户和掌握基本的编程知识。
+ 先下载hugo https://github.com/gohugoio/hugo/releases ，选择自己对应的操作系统安装包 解压，把hugo.exe加入环境变量。  把hugo.exe放到C:\hugo\下 然后在环境变量的path环境变量中添加这个路径 然后在cmd中测试，输入命令hugo version  在你自己想要的目录下打开cmd输入hugo new site hugo-blog，hugo会自动生成一个hugo-blog文件夹 cd到目录下，cmd输入hugo hello.md，hugo会在content目录下新建一个hello.md文件。这就是写文章。里面的内容自己编辑，可能会带有draft=true的参数，表示这是一篇草稿。 cmd输入hugo -d在public目录生成静态站点文件，这里面的所有文件就是你要push到github page上的静态文件。也可以使用hugo -d blog自定义生成文件的路径为blog文件夹 cmd输入hugo serve就可以在 http://localhost:1313 进行本地预览。注意如果你的md文件是草稿，是看不到的，此时有2个办法：一个是删掉那一行，还有一个是使用hugo serve --buildDrafts命令 使用hugo serve -w命令可以进行实时预览，当文件保存以后，1313端口的本地页面会自动刷新  hugo自定义 主配置文件在config.toml里，可以自己修改host、网站标题、描述等
+主题：自行搜索，或者去(https://themes.gohugo.io/ )自己挑一个。
+主题下载以后解压，将主题文件夹整个放到根目录的themes 目录下，然后去根目录的config.toml下加一行： theme = &amp;quot;hyde&amp;quot;，我这里用的是hyde主题(https://github.com/spf13/hyde/)
+以上内容的参考资料来自 这个网站
+利用travis-ci自动部署到github page 正常情况下我们只需要hugo -d，然后把生成的文件全部push到 username.github.io仓库下就可以了。但是每一次这样做很不方便，于是就使用了持续集成。
+我们先把整个hugo-blog目录也做成一个git仓库，我的地址： https://github.com/lzh77/hugo-blog
+然后创建travis-ci所需的配置文件，如下： https://raw.githubusercontent.com/lzh77/hugo-blog/master/.travis.yml
+你可以直接使用他，注意自己改成自己的 git用户名 和 github page 仓库地址。
+配置文件中有一个GITHUB_TOKEN变量，我们需要自己申请一个token用于travis-ci：
+ 到 https://github.com/settings/tokens 选择access tokens，新建一个，权限选择除了delete_repo以外的全部。复制下它，因为返回以后你自己也看不到它了，只能重建一个。  进入 https://travis-ci.</description>
+    </item>
+    
+  </channel>
+</rss>

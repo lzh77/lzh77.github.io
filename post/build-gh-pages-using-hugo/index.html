@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>使用hugo和github pages 搭建静态站点 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">使用hugo和github pages 搭建静态站点</span></h1>
+
+<h2 class="date">2018/07/18</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/hugo">hugo</a> <a href="/tags/github">github</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+
+
+<p>最近有点空了又开始折腾个人博客了，听闻hugo有上升的趋势，于是就去体验了一把。</p>
+
+<p>hugo是用go语言编写的项目，帮助用户以很快的速度搭建静态站点。方式是和hexo一样，生成静态html文件。与hexo的区别在于，在达到千级别的文章数量以后，hexo的性能就跟不上了。又由于大火的go语言，所以hugo开始崭露头角。</p>
+
+<h3 id="hugo使用和环境搭建">hugo使用和环境搭建</h3>
+
+<p>这里以windows环境为例，并默认你已经有github账户和掌握基本的编程知识。</p>
+
+<ul>
+<li>先下载hugo <a href="https://github.com/gohugoio/hugo/releases">https://github.com/gohugoio/hugo/releases</a> ，选择自己对应的操作系统安装包</li>
+<li>解压，把hugo.exe加入环境变量。
+
+<ul>
+<li>把hugo.exe放到<code>C:\hugo\</code>下</li>
+<li>然后在环境变量的path环境变量中添加这个路径</li>
+<li>然后在cmd中测试，输入命令<code>hugo version</code></li>
+</ul></li>
+<li>在你自己想要的目录下打开cmd输入<code>hugo new site hugo-blog</code>，hugo会自动生成一个hugo-blog文件夹</li>
+<li>cd到目录下，cmd输入<code>hugo hello.md</code>，hugo会在content目录下新建一个hello.md文件。这就是写文章。里面的内容自己编辑，可能会带有draft=true的参数，表示这是一篇草稿。</li>
+<li>cmd输入<code>hugo -d</code>在public目录生成静态站点文件，这里面的所有文件就是你要push到github page上的静态文件。也可以使用<code>hugo -d blog</code>自定义生成文件的路径为blog文件夹</li>
+<li>cmd输入<code>hugo serve</code>就可以在 <a href="http://localhost:1313">http://localhost:1313</a> 进行本地预览。注意如果你的md文件是草稿，是看不到的，此时有2个办法：一个是删掉那一行，还有一个是使用<code>hugo serve --buildDrafts</code>命令</li>
+<li>使用<code>hugo serve -w</code>命令可以进行实时预览，当文件保存以后，1313端口的本地页面会自动刷新</li>
+</ul>
+
+<h3 id="hugo自定义">hugo自定义</h3>
+
+<p>主配置文件在<code>config.toml</code>里，可以自己修改host、网站标题、描述等</p>
+
+<p>主题：自行搜索，或者去(<a href="https://themes.gohugo.io/">https://themes.gohugo.io/</a> )自己挑一个。</p>
+
+<p>主题下载以后解压，将主题文件夹整个放到根目录的themes 目录下，然后去根目录的<code>config.toml</code>下加一行：
+<code>theme = &quot;hyde&quot;</code>，我这里用的是hyde主题(<a href="https://github.com/spf13/hyde/">https://github.com/spf13/hyde/</a>)</p>
+
+<p>以上内容的参考资料来自 <a href="http://newoxygen.github.io/post/hugo%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%99/">这个网站</a></p>
+
+<h3 id="利用travis-ci自动部署到github-page">利用travis-ci自动部署到github page</h3>
+
+<p>正常情况下我们只需要hugo -d，然后把生成的文件全部push到 username.github.io仓库下就可以了。但是每一次这样做很不方便，于是就使用了持续集成。</p>
+
+<p>我们先把整个hugo-blog目录也做成一个git仓库，我的地址： <a href="https://github.com/lzh77/hugo-blog">https://github.com/lzh77/hugo-blog</a></p>
+
+<p>然后创建travis-ci所需的配置文件，如下：
+<a href="https://raw.githubusercontent.com/lzh77/hugo-blog/master/.travis.yml">https://raw.githubusercontent.com/lzh77/hugo-blog/master/.travis.yml</a></p>
+
+<p>你可以直接使用他，注意自己改成自己的 git用户名 和 github page 仓库地址。</p>
+
+<p>配置文件中有一个GITHUB_TOKEN变量，我们需要自己申请一个token用于travis-ci：</p>
+
+<ul>
+<li>到 <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a> 选择<code>access tokens</code>，新建一个，权限选择除了delete_repo以外的全部。复制下它，因为返回以后你自己也看不到它了，只能重建一个。</li>
+</ul>
+
+<p>进入 <a href="https://travis-ci.org/">https://travis-ci.org/</a> ，选择github账户登录：</p>
+
+<ul>
+<li>进入我们的<code>hugo-blog</code>项目，是空白的，点击中间的绿色按钮 active 将它激活为一个travis-ci 项目。如果你没有先写好<code>.travis.yml</code>文件，则会激活失败。</li>
+</ul>
+
+<p>右上角点击进入setting 页面，填入自定义的环境变量：</p>
+
+<ul>
+<li>在Environment Variables 下新建环境变量 GITHUB_TOKEN 填入我们刚刚申请的token即可。</li>
+<li>在General 下保证 <code>Build pushed branches</code> 和 <code>Build pushed pull requests</code>都开启。</li>
+</ul>
+
+<p>然后回到 hugo-blog 的git仓库，进行一个新的push，刷新 travis-ci.org 的页面，你会看到正在进行自动部署。这样我们每一次新的文章被push上去，博客就会自动更新。</p>
+
+<p>以上的内容参考 <a href="https://blog.csdn.net/woblog/article/details/51319364">https://blog.csdn.net/woblog/article/details/51319364</a></p>
+
+<p>下面是我的博客：<a href="https://lzh77.github.io/">https://lzh77.github.io/</a></p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

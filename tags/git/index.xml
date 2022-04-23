@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on 菜鸡实验室</title>
+    <link>/tags/git/</link>
+    <description>Recent content in Git on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Aug 2019 13:11:02 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>推荐一个小巧好用的Git客户端-Fork</title>
+      <link>/post/git-client-fork/</link>
+      <pubDate>Thu, 08 Aug 2019 13:11:02 +0800</pubDate>
+      
+      <guid>/post/git-client-fork/</guid>
+      <description>如题，简洁明了。官网：https://git-fork.com
+他长这样：
+拥有黑白双主题。无需注册。提供win mac 两种客户端。
+值得一提的是，他的开发者是一男一女两夫妻。丈夫负责mac端，妻子负责win端。
+我承认我酸了……</description>
+    </item>
+    
+    <item>
+      <title>Git 删除所有提交历史</title>
+      <link>/post/git-delete-all-history/</link>
+      <pubDate>Mon, 03 Sep 2018 20:20:09 +0800</pubDate>
+      
+      <guid>/post/git-delete-all-history/</guid>
+      <description>有些git项目出于一些原因我们需要删除提交历史。
+有如下场景：
+不小心把配置文件的密钥等信息上传出去了又想撤回。
+项目commit次数太多了，删除commit可以相当于清理一下repo，可以缩小体积
+如果是单人的项目，这时候可以用命令：git push --force来完成。这样会覆盖上一次commit。
+如果是想删除所有的提交历史，我们可以用以下的命令：
+# 1. 创建全新的孤立分支 latest_branch git checkout --orphan latest_branch # 2. 暂存所有文件 git add -A # 3. 提交所有文件的修改到latest_branch git commit -am &amp;quot;del all history&amp;quot; # 4. 删除原来的master分支 git branch -D master # 5. 修改latest_branch分支名为master git branch -m master # 6. 强制更新远程服务器的master分支, 至此清空git所有历史 git push -f origin master  </description>
+    </item>
+    
+  </channel>
+</rss>

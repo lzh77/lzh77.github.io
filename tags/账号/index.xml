@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>账号 on 菜鸡实验室</title>
+    <link>/tags/%E8%B4%A6%E5%8F%B7/</link>
+    <description>Recent content in 账号 on 菜鸡实验室</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Jan 2018 13:41:28 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/%E8%B4%A6%E5%8F%B7/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>国内可删除账号的网站与服务清单，持续更新中</title>
+      <link>/post/deletable-internet-account-in-china/</link>
+      <pubDate>Thu, 25 Jan 2018 13:41:28 +0800</pubDate>
+      
+      <guid>/post/deletable-internet-account-in-china/</guid>
+      <description>【重点】表示容易忽视或者很难找到入口的注意事项，并非全部注意事项。  微博：官方版APP，登录账号点击 我的-设置-账号与安全-微博安全中心-其他账号类问题-如何注销微博账号。 重点：需要三个月内无敏感操作（换绑手机、异常登录等等），还要解除第三方授权。方法：登录电脑网页版微博，点击个人中心-管理中心-我的应用-我正在使用的应用，一个个手动删除。
+ 百度：登录任一百度系手机APP（建议网盘，亲测有效）点击我的-账号设置-账号安全-账号注销 重点：需要刷脸（目测是假的，因为我刷脸秒过）
+ 简书：登录电脑网页版，在账号安全中直接删除。 重点：需要钱包没钱和文章全部删除掉。但是钱包要到一定数额才可以提现，所以很可能是死循环（此点是本人猜测）
+ 豆瓣：登录电脑网页版，在账号安全中直接删除。 重点：注销后，曾经绑定的邮箱和手机不可注册新号，但可绑定已有的其他账号（删除时会有提示）
+ 网易云音乐：
+ 网易通信证：没有直接注销的方法，如果连续180天未使用系统会自动清除账号。参考官方的帮助
+  其他更详细的参考资料: 少数派-为了响应工信部要求，我们整理了这些网络账户注销指南</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>Git 删除所有提交历史 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">Git 删除所有提交历史</span></h1>
+
+<h2 class="date">2018/09/03</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/git">git</a> <a href="/tags/github">github</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>有些git项目出于一些原因我们需要删除提交历史。</p>
+
+<p>有如下场景：<br />
+不小心把配置文件的密钥等信息上传出去了又想撤回。<br />
+项目commit次数太多了，删除commit可以相当于清理一下repo，可以缩小体积</p>
+
+<p>如果是单人的项目，这时候可以用命令：<code>git push --force</code>来完成。这样会覆盖上一次commit。</p>
+
+<p>如果是想删除所有的提交历史，我们可以用以下的命令：</p>
+
+<pre><code class="language-bash"># 1. 创建全新的孤立分支 latest_branch
+git checkout --orphan latest_branch
+
+# 2. 暂存所有文件
+git add -A
+
+# 3. 提交所有文件的修改到latest_branch
+git commit -am &quot;del all history&quot;
+
+# 4. 删除原来的master分支
+git branch -D master
+
+# 5. 修改latest_branch分支名为master
+git branch -m master
+
+# 6. 强制更新远程服务器的master分支, 至此清空git所有历史
+git push -f origin master
+</code></pre>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

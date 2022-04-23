@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>关于Android Studio和gradle日常操作的一些坑的记录 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">关于Android Studio和gradle日常操作的一些坑的记录</span></h1>
+
+<h2 class="date">2018/01/05</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/gradle">gradle</a> <a href="/tags/android-studio">Android Studio</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<ul>
+<li><p>run项目，弹框出现 <code>ADB Install Fails With INSTALL_FAILED_TEST_ONLY</code>，安装失败<br />
+解决办法：run的启动选项里面的<code>install Flags</code> 填上参数 <code>-t</code>
+再不行就关闭instant run
+<a href="https://stackoverflow.com/a/43654550">参考链接</a></p></li>
+
+<li><p>run项目报错：<code>Error:This Gradle plugin requires Studio 3.0 minimum</code><br />
+解决办法：<code>gradle.properties</code>中加一行 <code>android.injected.build.model.only.versioned = 3</code>
+<a href="http://blog.csdn.net/shenggaofei/article/details/78165940">参考链接</a></p></li>
+
+<li><p>run项目需要下载新的sdk，下载失败报错：<code>Failed to read or create install properties file</code><br />
+解决办法：我是win系统，进入sdk目录下发现需要权限（我的sdk目录是自己新建的文件夹，不存在权限问题）
+然后我就管理员运行AS，解决了
+<a href="https://stackoverflow.com/a/42617940">参考链接</a></p></li>
+
+<li><p>查看源码时，显示注释非常慢，按快捷键Ctrl+Q也很慢，甚至不显示<br />
+解决办法：在win系统中，<code>C:\Users\admin\.AndroidStudio2.3\config\options\jdk.table.xml</code>中，查找注释需要的在线链接：</p>
+
+<pre><code class="language-xml">&lt;root type=&quot;simple&quot; url=&quot;http://developer.android.com/reference/&quot;&gt;
+</code></pre>
+
+<p>全部替换为</p>
+
+<pre><code class="language-xml">&lt;root type=&quot;simple&quot; url=&quot;http://developer.android.google.cn/reference/&quot;&gt;
+</code></pre>
+
+<p>注意每个api都有一条，需要全部替换。<br />
+<a href="https://stackoverflow.com/a/33771262">参考链接</a></p></li>
+</ul>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+

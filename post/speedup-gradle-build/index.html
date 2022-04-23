@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1">
+    <title>加速gradle编译的方案汇总集合 | 菜鸡实验室</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/theme-override.css">
+    
+    
+
+<header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      <li class="pull-left ">
+        <a href="/">/home/菜鸡实验室</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/">~/home</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">~/tags</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/archives/">~/archives</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="https://t.me/s/lzh_notebook">~/notebook</a>
+      </li>
+      
+
+      
+      
+      <li class="pull-right">
+        <a href="/index.xml">~/subscribe</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+<h1><span class="title">加速gradle编译的方案汇总集合</span></h1>
+
+<h2 class="date">2019/07/03</h2>
+<p class="tag">
+  
+  
+  
+  
+  Tags: <a href="/tags/android">Android</a> <a href="/tags/android-studio">Android Studio</a> <a href="/tags/kotlin">kotlin</a> <a href="/tags/gradle">gradle</a> 
+  
+  
+</p>
+</div>
+
+
+
+<main>
+<p>公司给我配的笔记本太卡了。</p>
+
+<p>i5低压U，8G内存，机械硬盘。本来是联想办公本。拿来给我做开发，还是最占电脑资源的APP开发。我佛了</p>
+
+<p>在条件不允许的情况下开始研究各种gradle编译加速方案。<br />
+我的知识还停留在早几年的时代，那时候配个gradle demon，搞个离线模式就差不多了，最多放个大招：跳过Test任务。代码如下：</p>
+
+<pre><code class="language-groovy">allprojects {
+    ......
+    //skip Test tasks
+    gradle.taskGraph.whenReady {
+        tasks.each { task -&gt;
+            if (task.name.contains(&quot;Test&quot;)) {
+                task.enabled = false
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>这段代码现在依然可用。只不过对于我这种硬件资源极度紧缺的情况，满足不了需求了。需要进行改造。<br />
+经过各种搜索以后发现了现在的方案，主要在于修改全局的<code>gradle.properties</code>文件。内容如下：</p>
+
+<pre><code class="language-properties">## For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+#
+# Specifies the JVM arguments used for the daemon process.
+# The setting is particularly useful for tweaking memory settings.
+# Default value: -Xmx1024m -XX:MaxPermSize=256m
+org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+#
+# When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. More details, visit
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+org.gradle.parallel=true
+org.gradle.daemon=true
+org.gradle.configureondemand=true
+#Sun May 05 13:55:14 CST 2019 我自己电脑的代理（v2ray），不需要的可以忽略
+systemProp.http.proxyHost=127.0.0.1
+systemProp.https.proxyPort=10809
+systemProp.https.proxyHost=127.0.0.1
+systemProp.http.proxyPort=10809
+
+
+# 开启gradle缓存
+# 需要Kotlin 1.2.20 以上，gradle 4.3以上
+org.gradle.caching=true
+android.enableBuildCache=true
+
+# 开启kotlin的增量和并行编译
+# 需要kotlin 1.3.30以上 是实验性，请注意
+kotlin.incremental=true
+kotlin.incremental.java=true
+kotlin.incremental.js=true
+kotlin.caching.enabled=true
+kotlin.parallel.tasks.in.project=true
+
+# 并行运行kapt 需要kotlin 1.2.60版本以上，且Gradle 4.10.3以上 支持
+kapt.use.worker.api=true
+# kapt avoiding 如果用kapt依赖的内容没有变化，会完全重用编译内容，省掉最上图中的:app:kaptGenerateStubsDebugKotlin的时间
+# 需 Kotlin 1.3.20 及以上
+kapt.include.compile.classpath=false
+
+# 某些老的第三方库内部默认写的是compile，以此启用被废弃的complie 这个 api
+android.debug.obsoleteApi=true
+</code></pre>
+
+<p>另外开启gradle缓存，还需要在app module的<code>build.gradle</code>文件里配置如下：</p>
+
+<pre><code class="language-groovy">kapt {
+    useBuildCache = true
+}
+</code></pre>
+
+<p>同时整理一下分析方法：</p>
+
+<p>在AS的Terminal里面输入<code>./gradlew assembleRelease --profile</code><br />
+等待执行结束，可以在项目的根目录下的<code>build/reports/profile</code>目录有对应的结果文件,形如<code>profile-2019-07-03-14-21-37.html</code>，用浏览器打开。就可以查看分析各task所占用的时间，做出对应的处理。</p>
+
+</main>
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      <hr/>
+      Copyright &copy; 2018, lzh77 | <a href="https://github.com/lzh77">Github</a>
+      
+    </footer>
+  </body>
+</html>
+
