@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><script>
+      document.documentElement.dataset.js = "true";
+      try {
+        var saved = localStorage.getItem("theme");
+        document.documentElement.dataset.theme =
+          saved === "light" || saved === "dark"
+            ? saved
+            : matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark";
+      } catch {}
+    </script><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="alternate" type="application/rss+xml" title="菜鸡实验室 RSS" href="/rss.xml"><meta name="description" content="2021总结 — 2022-01-02"><title>2021总结 · 菜鸡实验室</title><link rel="canonical" href="https://lzh77.github.io/blog/2021-summary/"><link rel="stylesheet" href="/_astro/Base.B82Ec86A.css"></head> <body> <a class="skip-link" href="#main">跳到正文</a> <div class="shell"> <button type="button" class="theme-toggle" aria-label="切换配色"><svg class="icon-sun" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="2.2"></circle><path d="M8 1.6v1.6M8 12.8v1.6M1.6 8h1.6M12.8 8h1.6M3.4 3.4l1.1 1.1M11.5 11.5l1.1 1.1M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1"></path></svg><svg class="icon-moon" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 2.2a4.8 4.8 0 1 0 4.6 6.4 3.8 3.8 0 1 1-4.6-6.4z"></path></svg></button> <nav class="breadcrumbs" aria-label="面包屑"> <a class="home-link" href="/" aria-label="Home"> <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"></path></svg> <span>Home</span> </a> <details class="site-menu"> <summary aria-label="展开站点目录" title="站点目录"><svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 4 4 4-4"></path></svg></summary> <div class="menu-panel"> <a href="/about/"> About </a> <a class="menu-rss" href="/rss.xml">RSS<svg aria-hidden="true" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11 11 5M6 5h5v5"></path></svg></a> </div> </details>   <span class="separator" aria-hidden="true">
+/
+</span> <span class="crumb-section">Blog</span> <span class="separator" aria-hidden="true">
+/
+</span> <span class="crumb-current" aria-current="page" title="2021总结"> 2021总结 </span>  </nav><script type="module">document.querySelectorAll(`.site-menu`).forEach(e=>{let t=e.querySelector(`summary`);document.addEventListener(`pointerdown`,t=>{e.open&&!e.contains(t.target)&&(e.open=!1)}),e.addEventListener(`keydown`,n=>{n.key===`Escape`&&e.open&&(e.open=!1,t.focus(),n.preventDefault())}),e.addEventListener(`keydown`,t=>{t.key===`Tab`&&requestAnimationFrame(()=>{e.contains(document.activeElement)||(e.open=!1)})})});</script> <main id="main"> <article> <header class="article-header"> <h1>2021总结</h1> <time datetime="2022-01-02T13:51:00+08:00"> 2022-01-02 </time> <ul class="post-tags" aria-label="文章标签"> <li>#blog</li><li>#年终总结</li> </ul> </header> <div class="prose"><h3 id="开篇">开篇</h3>
+<p>捡起文字技能，有种恍如隔世的感觉。</p>
+<p>我读书以来就是理科班里的文科小子，其实这并不是说我对文科有种特殊的喜好，只是那时候的我给自己的要求就是文理全面发展。以至于到现在，我对文字精炼程度的追求还甚于某些天天拿笔的小编，尽管我现在从事着码农的工作。</p>
+<p>但是进入社会，我才意识到「表达」真正占据的地位和意义，在这个年轻时代，写点东西并不仅仅是某些中二青少年的专属，而是新社会的人类所必备的一项技能。</p>
+<p>扯远了。话说回来，2021年我重新开始思考人生，或许这是对于奔三的灵魂来说一个必经之路，但是波澜不惊的一年确实让我整个人发生了潜移默化的改变。</p>
+<h3 id="一去他的互联网">一·去他的互联网</h3>
+<p>都说上班以后的的第一份工作会伴随一生，在我的身上还真应验了。4月份辞了原来的外包工作，跌跌撞撞的求职过后，进入了本来不太愿意的一个行业——车联网。在持续在汽车行业混了好几年之后，我也回到了原点。年轻时感觉互联网行业各种高大上，「新思维、开放、年轻化」听起来各种牛逼，不过到了现在这家公司发现，他也有自己独特的一面：<br>
+技术方面既有自己手撸的陈年屎山，也有使用最前沿、最新热门框架的玩意，甚至我看到了鸿蒙相关的东西已经搞了一年多了，服务端开始用<code>kotlin</code>。<br>
+项目管理方面也是紧贴外企，或许和我们的甲方是德企有关，英文邮件、翔实的流程图、完整的测试用例、技术售前的工作风格，让我这个非科班的泥腿子觉得，似乎这也是以后能混饭吃的凭借点。不过感觉这跟我2020一整年研究新能车资本市场是否有关，我就不得而知了。<br>
+至于目标，在有了更多时间学习、听播客之后，虽然暂时没有定下来今后20年的路，不过受外企风格影响，开始涉足medium、Stack Overflow、领英等偏向国际化的站点。似乎感觉自己和刚出社会的毛头小子拉开了差距 <del>实际上还是要学习一个</del></p>
+<h3 id="二在线跑毒">二·在线跑毒</h3>
+<p>本以为疫情稳定下来了，于是躁动的心又开始了，约上朋友去新疆玩。刚去了没两天，新疆疫情爆发……当时朋友紧张的不行，非要连夜赶回来，我也就一起回来了。<br>
+途中真是与时间赛跑，先是天还没亮就直奔机场，然后机场值机差点就没给过。后面又是转机到太原，再到南京，中途还要看行程码、签字表示你是没有感染的，才能放行。我深知自己的毒奶体质，全程忍着没打开一个群，有些比较熟的群友纷纷表示我是不是被困在新疆了。当我坐上从南京开往上海的动车，我才敢稍微说上一句话：“闭嘴，爷在跑毒”。<br>
+最终的结果当然是有惊无险了，就是可惜了小亏一点交通费，以及没玩的尽兴。不过有一说一景点确实不错，我们就去了天山，山上空气很好，风景也挺好，那天恰好是下完雪开始融化的时候。下次有机会去一下没去成的吐鲁番什么的。</p>
+<h3 id="三卖身契">三·卖身契</h3>
+<p>其实一开始我是拒绝的，我的想法是提前半年到一年让家人帮我多跑跑多看看房，到了资格快满的时候就差不多定下来，这样第一可以充分的看完很多房子，第二不用那么急也不会被销售牵着鼻子走。可我家人并不理解，他们在之前我好说歹说的时候屁股不挪一步，到了我资格快满的时候就催着我快去长沙一起看，甚至想让我一周看完就定下来。这也明显是被销售忽悠了说在不上车就来不及了。不过在我的努力拉扯下好歹也是花了满满的5天去看，再加上关键时刻我之前联系的一个表哥也帮忙带着我们去看，最后的结果大家都还算满意吧。</p>
+<h3 id="四口音和思维的脱轨">四·口音和思维的脱轨</h3>
+<p>人在魔都呆久了，家乡话也说不利索了，尤其在相亲的时候，用家乡话和妹子交流，那叫一个难受。经过这么多年我确实是得出结论，我们这里的家乡话并不适合表达比较高级的词汇和意思，我平时在颅内自语和头脑风暴的时候也是以普通话口音说的。但是面对老乡，说普通话又太显生分，说家乡话感觉整个人都变得笨比了起来，这不会被妹子看不起吧……虽然最终还是没成，但是我已经开始思考今后更多的相亲应该怎么说话了。害，以后多练练吧</p>
+<h3 id="五经典环节">五·经典环节</h3>
+<p>· 治牙<br>
+· 社交、写作、表达<br>
+· 锻炼<br>
+· 学技术，混饭吃</p>
+</div> </article> </main> </div><script type="module">var e=document.querySelector(`.theme-toggle`),t=()=>{let t=document.documentElement.dataset.theme===`light`;e?.setAttribute(`aria-label`,t?`切换为深色`:`切换为浅色`)};t(),e?.addEventListener(`click`,()=>{let e=document.documentElement.dataset.theme===`light`?`dark`:`light`;document.documentElement.dataset.theme=e,localStorage.setItem(`theme`,e),t()});</script> </body> </html>
